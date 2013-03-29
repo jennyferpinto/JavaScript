@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html>
+ <head>
+  <meta charset="utf-8" />
+  <title>Cat Walk</title>
+ </head>
+ <body>
+  
+  <button id="start-button">Start</button>
+  <button id="speed-button">Go Faster!</button>
+  <button id="stop-button">Stop</button>
+  <div id="info"></div>
+  
+  <img style="position:absolute; left: 0px; top: 80px;" src="http://www.anniemation.com/clip_art/images/cat-walk.gif">
+
+  <script>
+var movePixels = 10;
+var delayMs = 50;
+//defining catTimer ahead of time so that we can use it inthe stopclick function for clearing the setInterval command
+var catTimer = null;
+function catWalk() {
+  var img = document.getElementsByTagName('img')[0];
+  var currentLeft = parseInt(img.style.left);
+  img.style.left = (currentLeft + movePixels) + 'px';
+  // using the previously defined variables movePixels, delayMs to increment
+  if (currentLeft > (window.innerWidth-img.width)) {
+    img.style.left = '0px'; //makes it go back to start point
+  }
+}
+function startCatWalk() {
+  catTimer = window.setInterval(catWalk, delayMs);
+}
+
+//cat moves 10px over with every click...
+// var startButton = document.getElementById('start-button');
+//   function glideButton() {
+//     var cat = document.getElementsByTagName('img'[0]); //why index 0
+//     cat.style.left = parseInt(cat.style.left) + 10 +'px';
+// }
+// startButton.addEventListener('click', glideButton);
+
+function onStartClick () {
+  var cat = document.getElementsByTagName('img') [0];
+  catWalking = window.setInterval(catWalk, delayMs);
+  // or can just call the startCatWalk() function inside this one
+}
+var startButton = document.getElementById('start-button');
+startButton.addEventListener('click',onStartClick)
+
+
+function onStopClick () {
+  window.clearInterval(catWalking)
+}
+var stopButton = document.getElementById('stop-button');
+stopButton.addEventListener('click', onStopClick)
+
+
+function onSpeedClick() {
+  movePixels += 5; //increase movePixels by 5 on every click of the button
+  var speed = movePixels * (1000/50);
+  document.getElementById('info').innerHTML = 'Current speed: ' + speed + 'px/second'; // this last part prints out the speed onto the screen
+}
+var speedButton = document.getElementById('speed-button');
+speedButton.addEventListener('click', onSpeedClick);
+  </script>
+
+ </body>
+</html>
